@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kalau Nanti Kita Berpisah 🌧️</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+    --sky: #9db9d1;
+    --sky-dark: #617e99;
+    --blue: #7595b1;
+    --blue-dark: #4d6982;
+    --text: #43566a;
+    --text-soft: #718396;
+    --line: #d4e0e9;
+    --white: #f8fbfd;
+    --cloud: #eaf1f6;
+    --rain: #b8cddd;
+}
+
+/* =========================
+   RESET
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100%;
+    padding: 12px;
+
+    font-family: "Quicksand", sans-serif;
+    color: var(--text);
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(255,255,255,.55) 0 45px,
+            transparent 46px
+        ),
+        radial-gradient(
+            circle at 90% 8%,
+            rgba(215,228,239,.75) 0 65px,
+            transparent 66px
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(184,205,221,.55) 0 75px,
+            transparent 76px
+        ),
+        linear-gradient(
+            180deg,
+            #b8cada 0%,
+            #9fb9ce 45%,
+            #d6e1e9 100%
+        );
+
+    overflow-x: hidden;
+}
+
+/* =========================
+   RAIN / CLOUD EFFECT
+========================= */
+
+body::before {
+    content: "☁   ☁        ☁   ☁       ☁";
+    position: fixed;
+    top: 10px;
+    left: 0;
+    width: 100%;
+
+    color: rgba(255,255,255,.42);
+    font-size: 28px;
+    letter-spacing: 5px;
+
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: -1;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+    z-index: -1;
+
+    opacity: .25;
+
+    background-image:
+        linear-gradient(
+            110deg,
+            transparent 48%,
+            rgba(255,255,255,.35) 49%,
+            transparent 50%
+        );
+
+    background-size: 18px 28px;
+
+    animation: rain 1.2s linear infinite;
+}
+
+@keyframes rain {
+
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 18px 28px;
+    }
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #8faac0,
+            #cbd9e4
+        );
+
+    transition:
+        opacity .7s ease,
+        visibility .7s ease;
+}
+
+.loading-screen.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loading-content {
+    width: min(100%, 360px);
+
+    padding: 28px 22px;
+
+    border: 1px solid rgba(255,255,255,.6);
+    border-radius: 30px;
+
+    background: rgba(247,251,254,.92);
+
+    box-shadow:
+        0 20px 50px rgba(61,83,104,.18);
+
+    text-align: center;
+}
+
+.loading-sticker {
+    display: block;
+
+    width: min(100%, 220px);
+    height: 190px;
+
+    margin: 0 auto 18px;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(
+            0 12px 15px
+            rgba(61,83,104,.16)
+        );
+}
+
+.loading-title {
+    margin: 0;
+
+    color: var(--blue-dark);
+
+    font-family: "Fredoka", sans-serif;
+
+    font-size: clamp(26px, 8vw, 36px);
+    line-height: 1.2;
+}
+
+.loading-text {
+    margin: 10px 0 18px;
+
+    color: var(--text-soft);
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.loading-bar {
+    width: 100%;
+    height: 8px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background: #dce7ef;
+}
+
+.loading-progress {
+    width: 0%;
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #6f8faa,
+            #a8bfd2
+        );
+
+    animation:
+        loadingProgress 2.5s ease forwards;
+}
+
+@keyframes loadingProgress {
+
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+/* =========================
+   APP
+========================= */
+
+.app {
+    width: 100%;
+    max-width: 480px;
+
+    min-height: calc(100vh - 24px);
+    min-height: calc(100svh - 24px);
+
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+    padding: 4px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+    min-width: 0;
+}
+
+.brand-icon {
+    width: 38px;
+    height: 38px;
+
+    flex: 0 0 38px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: rgba(248,251,253,.92);
+
+    box-shadow:
+        0 6px 18px
+        rgba(65,87,107,.12);
+
+    font-size: 20px;
+}
+
+.brand-text {
+    min-width: 0;
+}
+
+.brand-text strong {
+    display: block;
+
+    color: #f7fbff;
+
+    font-family: "Fredoka", sans-serif;
+
+    font-size: 16px;
+
+    white-space: nowrap;
+
+    text-shadow:
+        0 1px 5px rgba(54,74,94,.25);
+}
+
+.brand-text small {
+    display: block;
+
+    margin-top: 1px;
+
+    color: rgba(247,251,255,.82);
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.counter {
+    flex: 0 0 auto;
+
+    padding: 8px 12px;
+
+    border: 1px solid rgba(255,255,255,.55);
+    border-radius: 999px;
+
+    background: rgba(248,251,253,.72);
+
+    color: var(--blue-dark);
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress-area {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+    padding: 0 4px;
+}
+
+.progress-line {
+    flex: 1;
+
+    height: 7px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background: rgba(239,247,252,.65);
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #617f9a,
+            #c5d8e6
+        );
+
+    transition: width .35s ease;
+}
+
+.progress-label {
+    color: rgba(248,251,255,.9);
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+/* =========================
+   PAGE
+========================= */
+
+.main {
+    width: 100%;
+
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    min-height: 0;
+}
+
+.page {
+    display: none;
+
+    width: 100%;
+    min-width: 0;
+
+    animation: pageIn .45s ease;
+}
+
+.page.active {
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes pageIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   CARD
+========================= */
+
+.page-card {
+    width: 100%;
+
+    padding: clamp(20px, 5vw, 32px);
+
+    border: 1px solid rgba(255,255,255,.75);
+
+    border-radius: 28px;
+
+    background:
+        rgba(248,251,253,.91);
+
+    box-shadow:
+        0 18px 45px
+        rgba(57,78,98,.16);
+
+    text-align: center;
+
+    backdrop-filter: blur(8px);
+}
+
+/* =========================
+   TEXT
+========================= */
+
+.eyebrow {
+    margin: 0 0 8px;
+
+    color: var(--blue-dark);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+h1,
+h2,
+h3 {
+    margin: 0;
+
+    font-family: "Fredoka", sans-serif;
+
+    line-height: 1.2;
+}
+
+h1 {
+    color: #526f89;
+
+    font-size: clamp(28px, 8vw, 42px);
+}
+
+h2 {
+    color: #526f89;
+
+    font-size: clamp(24px, 7vw, 34px);
+}
+
+h3 {
+    color: var(--text);
+
+    font-size: 18px;
+}
+
+.description {
+    max-width: 360px;
+
+    margin: 14px auto 0;
+
+    color: var(--text-soft);
+
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.content {
+    margin-top: 18px;
+
+    text-align: left;
+}
+
+.content p {
+    margin: 0 0 15px;
+
+    color: #687b8d;
+
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.content p:last-child {
+    margin-bottom: 0;
+}
+
+.center {
+    text-align: center;
+}
+
+/* =========================
+   STICKER
+========================= */
+
+.sticker-area {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+
+    margin: 0 auto 20px;
+}
+
+.sticker {
+    display: block;
+
+    width: min(100%, 230px);
+    height: 180px;
+
+    object-fit: contain;
+    object-position: center;
+
+    filter:
+        drop-shadow(
+            0 12px 14px
+            rgba(55,77,97,.13)
+        );
+
+    user-select: none;
+
+    -webkit-user-drag: none;
+}
+
+.sticker.large {
+    height: 220px;
+}
+
+/* =========================
+   THANKS / SAD LIST
+========================= */
+
+.thanks-list {
+    display: grid;
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+.thanks-item {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 11px;
+
+    padding: 13px;
+
+    border: 1px solid #dbe5ec;
+
+    border-radius: 17px;
+
+    background:
+        rgba(238,245,249,.82);
+
+    text-align: left;
+}
+
+.thanks-icon {
+    width: 34px;
+    height: 34px;
+
+    flex: 0 0 34px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    background: #d9e6ef;
+
+    font-size: 17px;
+}
+
+.thanks-item strong {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #536b80;
+
+    font-size: 13px;
+}
+
+.thanks-item span {
+    display: block;
+
+    color: #7a8c9c;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+/* =========================
+   MESSAGE BOX
+========================= */
+
+.message-box {
+    max-height: min(58vh, 450px);
+    max-height: min(58svh, 450px);
+
+    overflow-y: auto;
+
+    margin-top: 18px;
+
+    padding: 18px;
+
+    border: 1px solid #d7e3eb;
+
+    border-radius: 20px;
+
+    background:
+        rgba(237,244,249,.85);
+
+    text-align: left;
+
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        #9fb7ca
+        #e4edf3;
+}
+
+.message-box::-webkit-scrollbar {
+    width: 6px;
+}
+
+.message-box::-webkit-scrollbar-track {
+    background: #e4edf3;
+
+    border-radius: 10px;
+}
+
+.message-box::-webkit-scrollbar-thumb {
+    background: #9fb7ca;
+
+    border-radius: 10px;
+}
+
+.message-box p {
+    margin-bottom: 15px;
+
+    color: #607589;
+
+    font-size: 14px;
+
+    line-height: 1.9;
+}
+
+.signature {
+    margin-top: 20px;
+
+    color: #58748d;
+
+    font-family: "Fredoka", sans-serif;
+
+    font-size: 20px;
+}
+
+.sparkles {
+    margin-top: 20px;
+
+    color: #7f9ab1;
+
+    font-size: 18px;
+
+    letter-spacing: 7px;
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.navigation {
+    display: flex;
+
+    gap: 10px;
+
+    width: 100%;
+
+    margin-top: auto;
+
+    padding-top: 2px;
+}
+
+.nav-button {
+    min-height: 48px;
+
+    border: 0;
+    border-radius: 16px;
+
+    padding: 12px 16px;
+
+    cursor: pointer;
+
+    font-family: "Quicksand", sans-serif;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    transition: .2s ease;
+}
+
+.nav-button:active {
+    transform: scale(.96);
+}
+
+.nav-button.back {
+    flex: 1;
+
+    color: #60798e;
+
+    background:
+        rgba(248,251,253,.9);
+
+    border: 1px solid #d6e1e9;
+}
+
+.nav-button.next {
+    flex: 1.4;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #66839d,
+            #8eaac0
+        );
+
+    box-shadow:
+        0 9px 20px
+        rgba(69,94,116,.22);
+}
+
+.nav-button:disabled {
+    opacity: .45;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    padding: 2px 0 3px;
+
+    text-align: center;
+
+    color: rgba(247,251,255,.82);
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 360px) {
+
+    body {
+        padding: 8px;
+    }
+
+    .app {
+        min-height: calc(100vh - 16px);
+        min-height: calc(100svh - 16px);
+
+        gap: 9px;
+    }
+
+    .page-card {
+        padding: 19px 15px;
+
+        border-radius: 23px;
+    }
+
+    .brand-icon {
+        width: 34px;
+        height: 34px;
+
+        flex-basis: 34px;
+    }
+
+    .brand-text strong {
+        font-size: 14px;
+    }
+
+    .counter {
+        padding: 7px 9px;
+
+        font-size: 10px;
+    }
+
+    .description,
+    .content p {
+        font-size: 13px;
+    }
+
+    .sticker {
+        width: min(100%, 190px);
+        height: 145px;
+    }
+
+    .sticker.large {
+        height: 175px;
+    }
+
+    .message-box {
+        padding: 14px;
+    }
+
+    .nav-button {
+        min-height: 45px;
+
+        padding: 10px 11px;
+
+        font-size: 12px;
+    }
+
+    .loading-content {
+        padding: 24px 16px;
+    }
+
+    .loading-sticker {
+        height: 160px;
+    }
+}
+
+@media (max-height: 650px) {
+
+    .page-card {
+        padding-top: 17px;
+        padding-bottom: 17px;
+    }
+
+    .sticker-area {
+        margin-bottom: 12px;
+    }
+
+    .sticker {
+        height: 130px;
+    }
+
+    .sticker.large {
+        height: 155px;
+    }
+
+    .content {
+        margin-top: 10px;
+    }
+
+    .loading-sticker {
+        height: 140px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     MUSIC
+========================= -->
+
+<audio id="bgMusic" autoplay loop preload="auto">
+    <source src="musik.mp3" type="audio/mpeg">
+</audio>
+
+
+<!-- =========================
+     LOADING SCREEN
+========================= -->
+
+<div class="loading-screen" id="loadingScreen">
+
+    <div class="loading-content">
+
+        <img
+            src="stiker1.webp"
+            alt="Stiker loading"
+            class="loading-sticker"
+        >
+
+        <h1 class="loading-title">
+            Sebentar ya...
+        </h1>
+
+        <p class="loading-text">
+            Ada sesuatu yang sebenarnya berat banget
+            buatku sampaikan...
+        </p>
+
+        <div class="loading-bar">
+
+            <div class="loading-progress"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     APP
+========================= -->
+
+<div class="app">
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                ☁️
+            </div>
+
+            <div class="brand-text">
+
+                <strong>
+                    Kalau Nanti Kita Berpisah
+                </strong>
+
+                <small>
+                    a letter I never wanted to write
+                </small>
+
+            </div>
+
+        </div>
+
+        <div class="counter">
+
+            <span id="pageNumber">
+                1
+            </span>/5
+
+        </div>
+
+    </header>
+
+
+    <!-- PROGRESS -->
+
+    <div class="progress-area">
+
+        <div class="progress-line">
+
+            <div
+                class="progress-fill"
+                id="progressFill">
+            </div>
+
+        </div>
+
+        <div
+            class="progress-label"
+            id="progressLabel">
+
+            1 dari 5
+
+        </div>
+
+    </div>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+        <!-- =========================
+             PAGE 1
+        ========================= -->
+
+        <section
+            class="page active"
+            id="page1">
+
+            <div class="page-card center">
+
+                <div class="sticker-area">
+
+                    <img
+                        src="stiker2.webp"
+                        alt="Stiker halaman pertama"
+                        class="sticker large"
+                    >
+
+                </div>
+
+                <p class="eyebrow">
+                    sebelum semuanya benar-benar selesai
+                </p>
+
+                <h1>
+                    Kalau nanti<br>
+                    kita berpisah...
+                </h1>
+
+                <p class="description">
+
+                    mungkin ini adalah satu-satunya
+                    caraku menyampaikan semua
+                    yang selama ini terlalu berat
+                    untuk diucapkan langsung.
+
+                </p>
+
+                <div class="sparkles">
+                    ☁︎ · · · ☔
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PAGE 2
+        ========================= -->
+
+        <section
+            class="page"
+            id="page2">
+
+            <div class="page-card">
+
+                <div class="sticker-area">
+
+                    <img
+                        src="stiker3.webp"
+                        alt="Stiker halaman kedua"
+                        class="sticker"
+                    >
+
+                </div>
+
+                <p class="eyebrow">
+                    jujur dari hati
+                </p>
+
+                <h2>
+                    Sebenarnya,<br>
+                    aku masih mau kamu.
+                </h2>
+
+                <div class="content">
+
+                    <p>
+                        Jujur, sampai detik ini pun aku
+                        masih nggak mau lepas dari kamu.
+                        Kalau hati aku boleh memilih,
+                        aku masih akan memilih kamu.
+                    </p>
+
+                    <p>
+                        Aku masih ingin dengar cerita kamu.
+                        Masih ingin lihat nama kamu muncul
+                        di layar HP aku. Masih ingin punya
+                        alasan untuk menunggu kabar kamu.
+                    </p>
+
+                    <p>
+                        Tapi aku mulai sadar...
+                        cinta nggak akan pernah cukup
+                        kalau cuma satu orang yang terus
+                        berusaha mempertahankan.
+                    </p>
+
+                    <p>
+                        Aku bisa menggenggam tangan kamu
+                        sekuat yang aku bisa.
+                        Tapi kalau tangan kamu sendiri
+                        perlahan-lahan memilih untuk lepas,
+                        aku nggak mungkin memaksa kamu
+                        untuk tetap tinggal.
+                    </p>
+
+                </div>
+
+                <div class="signature center">
+                    Aku masih sayang. Itu masalahnya. 🤍
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PAGE 3
+        ========================= -->
+
+        <section
+            class="page"
+            id="page3">
+
+            <div class="page-card">
+
+                <div class="sticker-area">
+
+                    <img
+                        src="stiker4.webp"
+                        alt="Stiker halaman ketiga"
+                        class="sticker"
+                    >
+
+                </div>
+
+                <p class="eyebrow">
+                    hal-hal yang masih aku ingat
+                </p>
+
+                <h2>
+                    Aku sudah tahu<br>
+                    semuanya...
+                </h2>
+
+                <div class="thanks-list">
+
+
+                    <div class="thanks-item">
+
+                        <div class="thanks-icon">
+                            🌧️
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Aku tahu kamu pernah salah.
+                            </strong>
+
+                            <span>
+                                Hal-hal yang sebenarnya sudah cukup
+                                menjadi alasan untuk pergi dari awal.
+                                Tapi entah kenapa, waktu itu aku masih
+                                memilih untuk tinggal.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="thanks-item">
+
+                        <div class="thanks-icon">
+                            🤍
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Aku berkali-kali memaafkan.
+                            </strong>
+
+                            <span>
+                                Bukan karena aku nggak sakit.
+                                Aku cuma terlalu sayang sampai
+                                rasa sakit itu selalu aku paksa
+                                untuk aku anggap bukan apa-apa.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="thanks-item">
+
+                        <div class="thanks-icon">
+                            🥀
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Aku pikir kalau aku cukup sabar...
+                            </strong>
+
+                            <span>
+                                Kalau aku cukup tulus,
+                                cukup mengerti,
+                                dan cukup mencintai kamu,
+                                mungkin suatu hari kamu akan sadar
+                                betapa seriusnya aku mempertahankan kita.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="thanks-item">
+
+                        <div class="thanks-icon">
+                            ☔
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Ternyata aku salah.
+                            </strong>
+
+                            <span>
+                                Karena ternyata seseorang bisa tetap
+                                dicintai sedalam apa pun,
+                                tapi tetap memilih untuk pergi.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PAGE 4
+        ========================= -->
+
+        <section
+            class="page"
+            id="page4">
+
+            <div class="page-card">
+
+                <div class="sticker-area">
+
+                    <img
+                        src="stiker5.webp"
+                        alt="Stiker halaman keempat"
+                        class="sticker"
+                    >
+
+                </div>
+
+                <p class="eyebrow">
+                    bagian yang paling sakit
+                </p>
+
+                <h2>
+                    Aku capek...
+                </h2>
+
+                <div class="content">
+
+                    <p>
+                        Yang paling sakit bukan ketika kamu
+                        melakukan kesalahan.
+                        Yang paling sakit adalah ketika aku
+                        sudah sampai di titik mengemis
+                        supaya kamu tetap tinggal.
+                    </p>
+
+                    <p>
+                        Aku pernah bilang,
+                        "jangan ngomong pisah lagi ya..."
+                        bukan karena aku ingin mengikat kamu.
+                        Aku cuma takut.
+                        Takut kehilangan orang yang
+                        selama ini aku anggap rumah.
+                    </p>
+
+                    <p>
+                        Tapi ternyata ketakutanku
+                        nggak pernah cukup untuk membuat
+                        kamu yakin sama aku.
+                    </p>
+
+                    <p>
+                        Kamu pernah meragukan rasa sayangku.
+                        Kamu pernah berpikir aku bertahan
+                        karena hal-hal yang salah.
+                        Kamu pernah ragu apakah aku benar-benar
+                        bisa menerima kamu apa adanya.
+                    </p>
+
+                    <p>
+                        Padahal aku ada di sini.
+                    </p>
+
+                    <p>
+                        Dengan segala kekurangan kamu,
+                        dengan semua sisi kamu yang mungkin
+                        nggak bisa diterima orang lain,
+                        aku masih berusaha menerima.
+                        Aku masih berusaha memahami.
+                        Aku masih memilih kamu.
+                    </p>
+
+                    <p>
+                        Tapi ternyata...
+                        dipilih oleh seseorang yang kita cintai
+                        adalah sesuatu yang nggak bisa dipaksa.
+                    </p>
+
+                    <p>
+                        Aku capek menjadi orang yang selalu takut
+                        kehilangan.
+                        Capek menjadi orang yang terus bertanya
+                        apakah besok kamu masih akan ada.
+                    </p>
+
+                    <p>
+                        Capek selalu bilang,
+                        "jangan pergi,"
+                        sementara di kepala kamu mungkin
+                        sudah ada kalimat,
+                        "maaf, aku mau sendiri."
+                    </p>
+
+                </div>
+
+                <div class="sparkles center">
+                    ☁︎ · ☔ · 🥀
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PAGE 5
+        ========================= -->
+
+        <section
+            class="page"
+            id="page5">
+
+            <div class="page-card">
+
+                <div class="sticker-area">
+
+                    <img
+                        src="stiker6.webp"
+                        alt="Stiker halaman kelima"
+                        class="sticker large"
+                    >
+
+                </div>
+
+                <p class="eyebrow">
+                    mungkin ini akhirnya
+                </p>
+
+                <h2>
+                    Kali ini,<br>
+                    aku yang lepasin.
+                </h2>
+
+                <div
+                    class="message-box"
+                    id="messageBox">
+
+                    <p>
+                        Jujur, aku nggak pernah menyangka
+                        kita akan sampai di titik seperti ini.
+                    </p>
+
+                    <p>
+                        Aku kira selama masih ada rasa,
+                        selama masih ada kata "sayang",
+                        kita akan selalu punya alasan
+                        untuk memperbaiki semuanya.
+                    </p>
+
+                    <p>
+                        Tapi ternyata aku baru mengerti...
+                        mempertahankan hubungan sendirian
+                        itu jauh lebih menyakitkan
+                        daripada kehilangan.
+                    </p>
+
+                    <p>
+                        Jadi kali ini,
+                        aku yang lepasin.
+                    </p>
+
+                    <p>
+                        Bukan karena aku sudah nggak sayang.
+                        Bukan karena aku sudah lupa.
+                        Dan bukan karena semua yang terjadi
+                        tiba-tiba nggak berarti.
+                    </p>
+
+                    <p>
+                        Justru karena aku masih sayang banget,
+                        aku memilih untuk berhenti memaksa kamu
+                        tinggal di tempat yang mungkin
+                        sudah nggak lagi kamu anggap rumah.
+                    </p>
+
+                    <p>
+                        Aku lepasin kamu supaya kamu bisa
+                        punya kehidupan yang kamu mau.
+                        Bisa punya ketenangan yang mungkin
+                        selama ini nggak kamu dapatkan
+                        bersamaku.
+                    </p>
+
+                    <p>
+                        Dan aku juga mau melepaskan diriku sendiri
+                        dari kebiasaan menunggu sesuatu
+                        yang nggak pernah pasti.
+                    </p>
+
+                    <p>
+                        Aku mau belajar bangun tanpa berharap
+                        ada chat dari kamu.
+                        Belajar tidur tanpa menunggu
+                        kamu kembali.
+                        Belajar melewati hari tanpa terus
+                        mencari keberadaan kamu di mana-mana.
+                    </p>
+
+                    <p>
+                        Mungkin awalnya akan terasa sepi.
+                        Mungkin akan ada banyak malam
+                        ketika aku masih ingin menghubungi kamu.
+                    </p>
+
+                    <p>
+                        Mungkin akan ada hari ketika aku
+                        tiba-tiba kangen dan berharap
+                        semuanya kembali seperti dulu.
+                    </p>
+
+                    <p>
+                        Tapi mungkin...
+                        itu memang bagian dari proses
+                        untuk benar-benar kehilangan seseorang.
+                    </p>
+
+                    <p>
+                        Terima kasih ya.
+                    </p>
+
+                    <p>
+                        Terima kasih untuk semua waktu
+                        yang pernah kamu kasih.
+                        Untuk semua cerita.
+                        Untuk semua tawa.
+                        Untuk semua pelukan.
+                        Untuk semua hal kecil
+                        yang mungkin buat kamu biasa saja,
+                        tapi pernah berarti sangat besar buat aku.
+                    </p>
+
+                    <p>
+                        Aku nggak akan membenci kamu.
+                    </p>
+
+                    <p>
+                        Bahkan setelah semua yang terjadi,
+                        aku masih berharap kamu baik-baik saja.
+                    </p>
+
+                    <p>
+                        Aku masih berharap kamu bahagia.
+                    </p>
+
+                    <p>
+                        Walaupun nanti,
+                        bahagianya bukan lagi sama aku.
+                    </p>
+
+                    <p>
+                        Kalau suatu hari kamu mengingat aku,
+                        aku harap kamu nggak mengingatku
+                        sebagai seseorang yang pernah membuatmu
+                        merasa bersalah.
+                    </p>
+
+                    <p>
+                        Ingat aku sebagai seseorang
+                        yang pernah mencintai kamu
+                        dengan cara terbaik yang dia bisa.
+                    </p>
+
+                    <p>
+                        Karena kalau boleh jujur...
+                        aku nggak pernah benar-benar ingin
+                        meninggalkan kamu.
+                    </p>
+
+                    <p>
+                        Aku cuma akhirnya sadar
+                        bahwa aku juga harus menyelamatkan
+                        diriku sendiri.
+                    </p>
+
+                    <p>
+                        Dan mungkin,
+                        melepaskan kamu adalah satu-satunya
+                        cara agar aku bisa berhenti
+                        kehilangan diriku sendiri.
+                    </p>
+
+                    <p>
+                        Jaga diri baik-baik.
+                    </p>
+
+                    <p>
+                        Jangan lupa makan.
+                        Jangan terlalu sering begadang.
+                        Jangan terlalu keras sama diri sendiri.
+                    </p>
+
+                    <p>
+                        Dan kalau suatu hari hujan turun
+                        dan kamu tiba-tiba teringat aku,
+                        nggak apa-apa.
+                    </p>
+
+                    <p>
+                        Aku mungkin juga sedang mengingat kamu
+                        dari tempat yang berbeda.
+                    </p>
+
+                    <p>
+                        Bedanya,
+                        waktu itu aku mungkin sedang belajar
+                        menerima bahwa kamu benar-benar
+                        sudah bukan milikku lagi.
+                    </p>
+
+                    <p>
+                        Semoga setelah ini hidup kamu
+                        jauh lebih tenang.
+                    </p>
+
+                    <p>
+                        Semoga kamu menemukan seseorang
+                        yang bisa memberikan apa yang
+                        nggak bisa aku berikan.
+                    </p>
+
+                    <p>
+                        Dan semoga orang itu
+                        nggak pernah membuat kamu
+                        merasa harus memohon untuk dicintai.
+                    </p>
+
+                    <p>
+                        Aku pernah ingin menjadi
+                        orang terakhir yang kamu pilih.
+                    </p>
+
+                    <p>
+                        Tapi ternyata,
+                        aku hanya akan menjadi
+                        seseorang yang pernah kamu pilih.
+                    </p>
+
+                    <p>
+                        Dan itu...
+                        harus cukup.
+                    </p>
+
+                    <p>
+                        Karena ternyata,
+                        kehilangan kamu bukan bagian
+                        yang paling menyakitkan.
+                    </p>
+
+                    <p>
+                        Bagian yang paling menyakitkan adalah
+                        menerima kenyataan bahwa aku masih
+                        mencintai kamu,
+                        bahkan ketika aku harus belajar
+                        hidup tanpa kamu.
+                    </p>
+
+                </div>
+
+                <div class="signature center">
+                    Jaga diri baik-baik, ya. 🤍
+                </div>
+
+                <div class="sparkles center">
+                    ☁︎ · · · ☔ · · · 🥀
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- NAVIGATION -->
+
+    <div class="navigation">
+
+        <button
+            class="nav-button back"
+            id="backButton"
+            type="button">
+
+            ← Kembali
+
+        </button>
+
+
+        <button
+            class="nav-button next"
+            id="nextButton"
+            type="button">
+
+            Mulai →
+
+        </button>
+
+    </div>
+
+
+    <footer class="footer">
+        dibuat dari hati yang masih belum benar-benar rela ♡
+    </footer>
+
+</div>
+
+
+<script>
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const loadingScreen =
+    document.getElementById("loadingScreen");
+
+const pages =
+    Array.from(
+        document.querySelectorAll(".page")
+    );
+
+const nextButton =
+    document.getElementById("nextButton");
+
+const backButton =
+    document.getElementById("backButton");
+
+const progressFill =
+    document.getElementById("progressFill");
+
+const pageNumber =
+    document.getElementById("pageNumber");
+
+const progressLabel =
+    document.getElementById("progressLabel");
+
+const messageBox =
+    document.getElementById("messageBox");
+
+
+let currentPage = 0;
+
+
+/* =========================
+   LOADING
+========================= */
+
+window.addEventListener(
+    "load",
+    function() {
+
+        setTimeout(
+            function() {
+
+                loadingScreen.classList.add(
+                    "hide"
+                );
+
+            },
+            2700
+        );
+
+    }
+);
+
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function updatePage() {
+
+    pages.forEach(
+        function(page, index) {
+
+            page.classList.toggle(
+                "active",
+                index === currentPage
+            );
+
+        }
+    );
+
+
+    const totalPages =
+        pages.length;
+
+    const currentNumber =
+        currentPage + 1;
+
+    const progress =
+        (currentNumber / totalPages) * 100;
+
+
+    pageNumber.textContent =
+        currentNumber;
+
+    progressLabel.textContent =
+        `${currentNumber} dari ${totalPages}`;
+
+    progressFill.style.width =
+        `${progress}%`;
+
+
+    backButton.disabled =
+        currentPage === 0;
+
+
+    if (
+        currentPage ===
+        totalPages - 1
+    ) {
+
+        nextButton.textContent =
+            "Ulangi ♡";
+
+    } else if (
+        currentPage === 0
+    ) {
+
+        nextButton.textContent =
+            "Mulai →";
+
+    } else {
+
+        nextButton.textContent =
+            "Lanjut →";
+
+    }
+
+
+    if (messageBox) {
+
+        messageBox.scrollTop = 0;
+
+    }
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =========================
+   NEXT
+========================= */
+
+nextButton.addEventListener(
+    "click",
+    function() {
+
+        if (
+            currentPage <
+            pages.length - 1
+        ) {
+
+            currentPage++;
+
+        } else {
+
+            currentPage = 0;
+
+        }
+
+        updatePage();
+
+    }
+);
+
+
+/* =========================
+   BACK
+========================= */
+
+backButton.addEventListener(
+    "click",
+    function() {
+
+        if (
+            currentPage > 0
+        ) {
+
+            currentPage--;
+
+            updatePage();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   KEYBOARD
+========================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "ArrowRight"
+        ) {
+
+            nextButton.click();
+
+        }
+
+        if (
+            event.key === "ArrowLeft" &&
+            currentPage > 0
+        ) {
+
+            backButton.click();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   INITIAL PAGE
+========================= */
+
+updatePage();
+
+
+/* =========================
+   MUSIC
+========================= */
+
+const bgMusic =
+    document.getElementById(
+        "bgMusic"
+    );
+
+
+if (bgMusic) {
+
+    bgMusic.volume = 0.45;
+
+
+    function playMusic() {
+
+        bgMusic
+            .play()
+            .catch(
+                function(error) {
+
+                    console.log(
+                        "Autoplay diblokir browser:",
+                        error
+                    );
+
+                }
+            );
+
+    }
+
+
+    /* Coba autoplay */
+
+    playMusic();
+
+
+    /* Coba lagi setelah load */
+
+    window.addEventListener(
+        "load",
+        playMusic
+    );
+
+
+    /*
+       Jika autoplay diblokir HP,
+       musik akan mulai ketika
+       pengguna pertama kali
+       menyentuh halaman.
+    */
+
+    document.addEventListener(
+        "click",
+        playMusic,
+        {
+            once: true
+        }
+    );
+
+
+    document.addEventListener(
+        "touchstart",
+        playMusic,
+        {
+            once: true,
+            passive: true
+        }
+    );
+
+}
+
+</script>
+
+</body>
+</html>
